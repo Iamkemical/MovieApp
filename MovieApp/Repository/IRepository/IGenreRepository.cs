@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MovieApp.API.Repository
+namespace MovieApp.API.Repository.IRepository
 {
-    public class Repository
+    public interface IGenreRepository
     {
+
     }
 }
