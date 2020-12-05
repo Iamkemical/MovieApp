@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MovieApp.API.Data;
 
 namespace MovieApp.API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201205125729_AddSubGenresModelToDb")]
+    partial class AddSubGenresModelToDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,37 +39,6 @@ namespace MovieApp.API.Migrations
                     b.ToTable("Genres");
                 });
 
-            modelBuilder.Entity("MovieApp.API.Models.MovieModel", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("GenreId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Rating")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("SubGenreId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("GenreId");
-
-                    b.HasIndex("SubGenreId");
-
-                    b.ToTable("Movies");
-                });
-
             modelBuilder.Entity("MovieApp.API.Models.SubGenreModel", b =>
                 {
                     b.Property<Guid>("Id")
@@ -89,21 +60,6 @@ namespace MovieApp.API.Migrations
                     b.HasIndex("GenreId");
 
                     b.ToTable("SubGenres");
-                });
-
-            modelBuilder.Entity("MovieApp.API.Models.MovieModel", b =>
-                {
-                    b.HasOne("MovieApp.API.Models.GenreModel", "Genres")
-                        .WithMany()
-                        .HasForeignKey("GenreId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MovieApp.API.Models.SubGenreModel", "SubGenres")
-                        .WithMany()
-                        .HasForeignKey("SubGenreId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("MovieApp.API.Models.SubGenreModel", b =>

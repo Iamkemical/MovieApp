@@ -39,5 +39,40 @@
             <param name="genreId">Genre id</param>
             <returns></returns>
         </member>
+        <member name="M:MovieApp.API.Controllers.SubGenresController.GetAllSubGenre">
+            <summary>
+            Gets a list of all the Sub genres in the database
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MovieApp.API.Controllers.SubGenresController.GetSubGenreById(System.Guid)">
+            <summary>
+            Gets individual Sub genre from database
+            </summary>
+            <param name="subGenreId">The id of the Sub genre</param>
+            <returns></returns>
+        </member>
+        <member name="M:MovieApp.API.Controllers.SubGenresController.CreateSubGenre(MovieApp.API.Models.DTOs.SubGenreCreateDTO)">
+            <summary>
+            Create a Sub genre
+            </summary>
+            <param name="subGenreDto">SubGenre Data transfer object</param>
+            <returns></returns>
+        </member>
+        <member name="M:MovieApp.API.Controllers.SubGenresController.UpdateSubGenre(System.Guid,MovieApp.API.Models.DTOs.SubGenreUpdateDTO)">
+            <summary>
+            Updates existing Sub genre in the database by passing sub genre Id
+            </summary>
+            <param name="subGenreId">SubGenre id</param>
+            <param name="subGenreDto">SubGenre DTO</param>
+            <returns></returns>
+        </member>
+        <member name="M:MovieApp.API.Controllers.SubGenresController.DeleteSubGenre(System.Guid)">
+            <summary>
+            Delete Sub genre from database by passing genre id
+            </summary>
+            <param name="subGenreId">SubGenre id</param>
+            <returns></returns>
+        </member>
     </members>
 </doc>

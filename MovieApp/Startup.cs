@@ -48,6 +48,7 @@ namespace MovieApp.API
             services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
             services.AddSwaggerGen();
             services.AddScoped<IGenreRepository, GenreRepository>();
+            services.AddScoped<ISubGenreRepository, SubGenreRepository>();
             services.AddAutoMapper(typeof(MovieMapper));
             services.AddControllers();
 
