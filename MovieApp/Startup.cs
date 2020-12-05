@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -12,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using MovieApp.API.Data;
+using MovieApp.API.Models.DTOs.MovieAppMapper;
 using MovieApp.API.Repository;
 using MovieApp.API.Repository.IRepository;
 
@@ -33,6 +35,7 @@ namespace MovieApp.API
                 opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<IGenreRepository, GenreRepository>();
+            services.AddAutoMapper(typeof(MovieMapper));
             services.AddControllers();
         }
 
