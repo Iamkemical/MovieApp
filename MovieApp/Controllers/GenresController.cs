@@ -11,8 +11,10 @@ using MovieApp.API.Repository.IRepository;
 
 namespace MovieApp.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/Genres")]
+    //[Route("api/[controller]")]
     [ApiController]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public class GenresController : ControllerBase
     {
         private readonly IGenreRepository _genreRepo;
@@ -25,6 +27,10 @@ namespace MovieApp.API.Controllers
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Gets a list of all the Genres in the database
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(List<GenreDTO>))]
         public IActionResult GetAllGenre()
@@ -41,6 +47,11 @@ namespace MovieApp.API.Controllers
             return Ok(objDto);
         }
 
+        /// <summary>
+        /// Gets individual genre from database
+        /// </summary>
+        /// <param name="genreId">The id of the genre</param>
+        /// <returns></returns>
         [HttpGet("{genreId:Guid}", Name ="GetGenreById")]
         [ProducesResponseType(200, Type = typeof(List<GenreDTO>))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -59,6 +70,11 @@ namespace MovieApp.API.Controllers
             return Ok(objDto);
         }
 
+        /// <summary>
+        /// Create a new genre
+        /// </summary>
+        /// <param name="genreDto">Genre Data transfer object</param>
+        /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(201, Type = typeof(List<GenreDTO>))]
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -91,7 +107,12 @@ namespace MovieApp.API.Controllers
             }
             return CreatedAtRoute("GetGenreById", new { genreId = genreObj.Id }, genreObj);
         }
-
+        /// <summary>
+        /// Updates existing genre in the database by passing genre Id
+        /// </summary>
+        /// <param name="genreId">Genre id</param>
+        /// <param name="genreDto">Genre DTO</param>
+        /// <returns></returns>
         [HttpPatch("{genreId:Guid}", Name = "UpdateGenre")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -114,6 +135,11 @@ namespace MovieApp.API.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Delete genre from database by passing genre id
+        /// </summary>
+        /// <param name="genreId">Genre id</param>
+        /// <returns></returns>
         [HttpDelete("{genreId:Guid}", Name = "DeleteGenre")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
