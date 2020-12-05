@@ -14,6 +14,9 @@ namespace MovieApp.API.Models.DTOs.MovieAppMapper
             CreateMap<SubGenreModel, SubGenreDTO>().ReverseMap();
             CreateMap<SubGenreModel, SubGenreCreateDTO>().ReverseMap();
             CreateMap<SubGenreModel, SubGenreUpdateDTO>().ReverseMap();
+            CreateMap<MovieModel, MoviesDTO>().ReverseMap();
+            CreateMap<MovieModel, MoviesCreateDTO>().ReverseMap();
+            CreateMap<MovieModel, MoviesUpdateDTO>().ReverseMap();
         }
     }
 }

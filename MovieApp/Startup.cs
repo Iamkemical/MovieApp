@@ -49,6 +49,7 @@ namespace MovieApp.API
             services.AddSwaggerGen();
             services.AddScoped<IGenreRepository, GenreRepository>();
             services.AddScoped<ISubGenreRepository, SubGenreRepository>();
+            services.AddScoped<IMovieRepository, MovieRepository>();
             services.AddAutoMapper(typeof(MovieMapper));
             services.AddControllers();
 

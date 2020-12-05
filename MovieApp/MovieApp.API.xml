@@ -39,6 +39,41 @@
             <param name="genreId">Genre id</param>
             <returns></returns>
         </member>
+        <member name="M:MovieApp.API.Controllers.MoviesController.GetMovies">
+            <summary>
+            Gets a list of all the Movies in the database
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MovieApp.API.Controllers.MoviesController.GetMovieById(System.Guid)">
+            <summary>
+            Gets individual Movie from database
+            </summary>
+            <param name="movieId">The id of the Movie</param>
+            <returns></returns>
+        </member>
+        <member name="M:MovieApp.API.Controllers.MoviesController.CreateMovie(MovieApp.API.Models.DTOs.MoviesCreateDTO)">
+            <summary>
+            Create a Movie
+            </summary>
+            <param name="moviesDto">Movie Data transfer object</param>
+            <returns></returns>
+        </member>
+        <member name="M:MovieApp.API.Controllers.MoviesController.UpdateMovie(System.Guid,MovieApp.API.Models.DTOs.MoviesUpdateDTO)">
+            <summary>
+            Updates existing movies in the database by passing movie Id
+            </summary>
+            <param name="moviesId">Movie id</param>
+            <param name="moviesDto">Movie DTO</param>
+            <returns></returns>
+        </member>
+        <member name="M:MovieApp.API.Controllers.MoviesController.DeleteMovie(System.Guid)">
+            <summary>
+            Delete Movie from database by passing movie id
+            </summary>
+            <param name="moviesId">Movie id</param>
+            <returns></returns>
+        </member>
         <member name="M:MovieApp.API.Controllers.SubGenresController.GetAllSubGenre">
             <summary>
             Gets a list of all the Sub genres in the database
