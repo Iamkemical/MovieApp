@@ -12,6 +12,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using MovieApp.API.Data;
+using MovieApp.API.Repository;
+using MovieApp.API.Repository.IRepository;
 
 namespace MovieApp.API
 {
@@ -29,6 +31,8 @@ namespace MovieApp.API
         {
             services.AddDbContext<ApplicationDbContext>(opt =>
                 opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddScoped<IGenreRepository, GenreRepository>();
             services.AddControllers();
         }
 
