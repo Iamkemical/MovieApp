@@ -96,14 +96,14 @@ namespace MovieApp.API.Controllers
                 return BadRequest(ModelState);
             }
 
-            var genreObj = _mapper.Map<MovieModel>(moviesDto);
+            var movieObj = _mapper.Map<MovieModel>(moviesDto);
 
-            if (!_movieRepo.CreateMovie(genreObj))
+            if (!_movieRepo.CreateMovie(movieObj))
             {
-                ModelState.AddModelError("", $"Something wrong occured when trying to save record {genreObj.Name}");
+                ModelState.AddModelError("", $"Something wrong occured when trying to save record {movieObj.Name}");
                 return StatusCode(500, ModelState);
             }
-            return CreatedAtRoute("GetMovieById", new { genreId = genreObj.Id }, genreObj);
+            return CreatedAtRoute("GetMovieById", new { movieId = movieObj.Id }, movieObj);
         }
         /// <summary>
         /// Updates existing movies in the database by passing movie Id
@@ -138,7 +138,7 @@ namespace MovieApp.API.Controllers
         /// </summary>
         /// <param name="moviesId">Movie id</param>
         /// <returns></returns>
-        [HttpDelete("{genreId:Guid}", Name = "DeleteMovie")]
+        [HttpDelete("{moviesId:Guid}", Name = "DeleteMovie")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
@@ -150,11 +150,11 @@ namespace MovieApp.API.Controllers
                 return NotFound();
             }
 
-            var genreObj = _movieRepo.GetMovieById(moviesId);
+            var movieObj = _movieRepo.GetMovieById(moviesId);
 
-            if (!_movieRepo.DeleteMovie(genreObj))
+            if (!_movieRepo.DeleteMovie(movieObj))
             {
-                ModelState.AddModelError("", $"Something went wrong when deleting the record {genreObj.Name}");
+                ModelState.AddModelError("", $"Something went wrong when deleting the record {movieObj.Name}");
                 return StatusCode(500, ModelState);
             }
             return NoContent();

@@ -15,9 +15,7 @@ namespace MovieApp.API.Models.DTOs
         public RatingType Rating { get; set; }
         [Required]
         public Guid GenreId { get; set; }
-        public virtual GenreDTO Genres { get; set; }
         [Required]
         public Guid SubGenreId { get; set; }
-        public virtual SubGenreDTO SubGenres { get; set; }
     }
 }
