@@ -13,6 +13,7 @@ namespace MovieApp.API.Models.DTOs
         [Required]
         public string Name { get; set; }
         public RatingType Rating { get; set; }
+        public AudienceType Audience { get; set; }
         [Required]
         public Guid GenreId { get; set; }
         [Required]

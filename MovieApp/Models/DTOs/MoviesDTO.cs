@@ -14,11 +14,13 @@ namespace MovieApp.API.Models.DTOs
         public string Name { get; set; }
         public DateTime DateCreated { get; set; }
         public RatingType Rating { get; set; }
+        public AudienceType Audience { get; set; }
         [Required]
         public Guid GenreId { get; set; }
         public virtual GenreDTO Genres { get; set; }
         [Required]
         public Guid SubGenreId { get; set; }
         public virtual SubGenreDTO SubGenres { get; set; }
+
     }
 }
