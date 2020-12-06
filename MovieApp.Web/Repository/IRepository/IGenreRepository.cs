@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MovieApp.Web.Models;
 
 namespace MovieApp.Web.Repository.IRepository
 {
-    interface IGenreRepository
+    public interface IGenreRepository : IRepository<GenreModel>
     {
     }
 }
