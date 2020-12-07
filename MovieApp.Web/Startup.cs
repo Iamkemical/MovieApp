@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MovieApp.Web.Repository;
+using MovieApp.Web.Repository.IRepository;
 
 namespace MovieApp.Web
 {
@@ -23,7 +25,10 @@ namespace MovieApp.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddScoped<IGenreRepository, GenreRepository>();
+            services.AddScoped<ISubGenreRepository, SubGenreRepository>();
+            services.AddScoped<IMovieRepository, MovieRepository>();
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddHttpClient();
         }
 
