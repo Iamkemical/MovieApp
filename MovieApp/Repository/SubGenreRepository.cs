@@ -62,7 +62,7 @@ namespace MovieApp.API.Repository
             return _dbContext.SubGenres.Include(c => c.Genres).FirstOrDefault(a => a.Id == id);
         }
 
-        public ICollection<SubGenreModel> GetSubGenreInGenre(Guid genreId)
+        public ICollection<SubGenreModel> GetGenreInSubGenre(Guid genreId)
         {
             return _dbContext.SubGenres.Include(c => c.Genres).Where(c => c.GenreId == genreId).ToList();
         }

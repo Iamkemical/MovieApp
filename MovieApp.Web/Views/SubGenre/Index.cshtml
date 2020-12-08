@@ -7,10 +7,10 @@
 <div class="p-4" style="border-radius:20px;">
     <div class="row">
         <div class="col-6">
-            <h2 class="text-danger">Genre List</h2>
+            <h2 class="text-danger">Sub Genre List</h2>
         </div>
         <div class="col-6 text-right">
-            <a asp-action="Upsert" class="btn btn-danger text-white"><i class="fa fa-plus"></i> &nbsp; Create New Genre</a>
+            <a asp-action="Upsert" class="btn btn-danger text-white"><i class="fa fa-plus"></i> &nbsp; Create New Sub Genre</a>
         </div>
     </div>
     <br />
@@ -20,6 +20,7 @@
             <table id="tblData" class="table table-striped table-bordered" style="width:100%">
                 <thead>
                     <tr class="table-danger">
+                        <th>Sub Genre</th>
                         <th>Genre</th>
                         <th></th>
                     </tr>
@@ -30,5 +31,5 @@
 </div>
 
 @section Scripts{
-    <script src="~/js/genre.js"></script>
+    <script src="~/js/subGenre.js"></script>
 }

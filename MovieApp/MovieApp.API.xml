@@ -87,6 +87,13 @@
             <param name="subGenreId">The id of the Sub genre</param>
             <returns></returns>
         </member>
+        <member name="M:MovieApp.API.Controllers.SubGenresController.GetGenreInSubGenre(System.Guid)">
+            <summary>
+            Get list of all genre in the subgenre
+            </summary>
+            <param name="genreId">Id of genre</param>
+            <returns></returns>
+        </member>
         <member name="M:MovieApp.API.Controllers.SubGenresController.CreateSubGenre(MovieApp.API.Models.DTOs.SubGenreCreateDTO)">
             <summary>
             Create a Sub genre
