@@ -24,6 +24,8 @@ namespace MovieApp.API.Models
         public Guid SubGenreId { get; set; }
         [ForeignKey("SubGenreId")]
         public virtual SubGenreModel SubGenres { get; set; }
+        public enum AudienceType { U, PG, TWELVEA, FIFTEEN, EIGHTEEN }
+        public AudienceType Audience { get; set; }
 
     }
 }

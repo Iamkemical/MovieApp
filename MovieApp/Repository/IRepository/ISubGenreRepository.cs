@@ -9,7 +9,7 @@ namespace MovieApp.API.Repository.IRepository
     public interface ISubGenreRepository
     {
         ICollection<SubGenreModel> SubGenre();
-        ICollection<SubGenreModel> GetSubGenreInGenre(Guid genreId);
+        ICollection<SubGenreModel> GetGenreInSubGenre(Guid genreId);
         SubGenreModel SubGenre(Guid id);
         bool SubGenreExist(string name);
         bool SubGenreExist(Guid id);

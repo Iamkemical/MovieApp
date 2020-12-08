@@ -3,19 +3,17 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using static MovieApp.API.Models.MovieModel;
 
-namespace MovieApp.API.Models.DTOs
+namespace MovieApp.Web.Models
 {
-    public class MoviesCreateDTO
+    public class SubGenreModel
     {
+        public Guid Id { get; set; }
         [Required]
         public string Name { get; set; }
-        public RatingType Rating { get; set; }
-        public AudienceType Audience { get; set; }
+        public DateTime DateCreated { get; set; }
         [Required]
         public Guid GenreId { get; set; }
-        [Required]
-        public Guid SubGenreId { get; set; }
+        public GenreModel Genres { get; set; }
     }
 }

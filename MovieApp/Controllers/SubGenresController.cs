@@ -52,7 +52,7 @@ namespace MovieApp.API.Controllers
         /// </summary>
         /// <param name="subGenreId">The id of the Sub genre</param>
         /// <returns></returns>
-        [HttpGet("{genreId:Guid}", Name = "GetSubGenreById")]
+        [HttpGet("{subGenreId:Guid}", Name = "GetSubGenreById")]
         [ProducesResponseType(200, Type = typeof(List<SubGenreDTO>))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
@@ -66,6 +66,31 @@ namespace MovieApp.API.Controllers
             }
 
             var objDto = _mapper.Map<SubGenreDTO>(obj);
+
+            return Ok(objDto);
+        }
+
+
+        /// <summary>
+        /// Get list of all genre in the subgenre
+        /// </summary>
+        /// <param name="genreId">Id of genre</param>
+        /// <returns></returns>
+        [HttpGet("[action]/{genreId:Guid}")]
+        [ProducesResponseType(200, Type = typeof(List<SubGenreDTO>))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
+        public IActionResult GetGenreInSubGenre(Guid genreId)
+        {
+            var objList = _genreRepo.GetGenreInSubGenre(genreId);
+
+            if (objList == null)
+            {
+                return NotFound();
+            }
+            var objDto = new List<SubGenreDTO>();
+            foreach (var obj in objList)
+                objDto.Add(_mapper.Map<SubGenreDTO>(obj));
 
             return Ok(objDto);
         }
@@ -113,7 +138,7 @@ namespace MovieApp.API.Controllers
         /// <param name="subGenreId">SubGenre id</param>
         /// <param name="subGenreDto">SubGenre DTO</param>
         /// <returns></returns>
-        [HttpPatch("{genreId:Guid}", Name = "UpdateSubGenre")]
+        [HttpPatch("{subGenreId:Guid}", Name = "UpdateSubGenre")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -140,7 +165,7 @@ namespace MovieApp.API.Controllers
         /// </summary>
         /// <param name="subGenreId">SubGenre id</param>
         /// <returns></returns>
-        [HttpDelete("{genreId:Guid}", Name = "DeleteSubGenre")]
+        [HttpDelete("{subGenreId:Guid}", Name = "DeleteSubGenre")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
