@@ -100,5 +100,11 @@ namespace MovieApp.Web.Controllers
             }
             return Json(new { success = false, message = "Delete not Successful!" });
         }
+
+        [ActionName("GetSubGenre")]
+        public async Task<IActionResult> GetSubGenre(Guid Id)
+        {
+            return Json(new { data = await _subGenreRepo.GetAsync(SD.SubGenreAPIPath, Id) });
+        }
     }
 }

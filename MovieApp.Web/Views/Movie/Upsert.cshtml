@@ -1,0 +1,157 @@
+﻿@model MovieApp.Web.Models.ViewModels.MovieUpsertVM
+@using MovieApp.Web.Extensions
+
+@{
+    var title = "Create new Movie";
+}
+
+<form method="post" asp-action="Upsert" enctype="multipart/form-data">
+
+    <div class="row px-2 mx-2 backgroundWhite border">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        @if (Model.Movies.Id != Guid.Empty)
+        {
+            <input type="hidden" asp-for="Movies.Id" />
+            title = "Edit Movie";
+        }
+
+        <div class="col-12 p-3">
+            <h2 class="text-primary">@title</h2>
+        </div>
+        <div class="col-8">
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Movies.GenreId" class="col-form-label"></label>
+                </div>
+                <div class="col-8">
+                    <select asp-for="Movies.GenreId" id="GenreId" asp-items="Model.GenreList.ToSelectListItem()" class="form-control"></select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    Sub Genre
+                </div>
+                <div class="col-8">
+                    <select asp-for="Movies.SubGenreId" id="SubGenreId" asp-items="Model.SubGenreList.ToSelectListItem()" class="form-control"></select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    Movie
+                </div>
+                <div class="col-8">
+                    <input asp-for="Movies.Name" class="form-control" />
+                    <span asp-validation-for="Movies.Name" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Movies.Picture"></label>
+                </div>
+                <div class="col-8">
+                    <input type="file" asp-for="Movies.Picture" id="projectImage" multiple class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Movies.Rating"></label>
+                </div>
+                <div class="col-8">
+                    <select asp-for="Movies.Rating"
+                            asp-items="Html.GetEnumSelectList<MoviesModel.RatingType>()"
+                            class="form-control"></select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Movies.Audience"></label>
+                </div>
+                <div class="col-8">
+                    <select asp-for="Movies.Audience"
+                            asp-items="Html.GetEnumSelectList<MoviesModel.AudienceType>()"
+                            class="form-control"></select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Movies.DateCreated"></label>
+                </div>
+                <div class="col-8">
+                    @{
+                        var dateEst = "";
+                        if (Model.Movies.Id != Guid.Empty)
+                        {
+                            dateEst = Model.Movies.DateCreated.ToShortDateString();
+                        }
+                    }
+                    <input id="datePicker" value="@dateEst" type="text" asp-for="Movies.DateCreated" class="form-control" />
+                </div>
+
+            </div>
+            <div class="form-group row">
+                <div class="col-4 offset-4">
+                    <button type="submit" class="btn btn-primary form-control">
+                        @(Model.Movies.Id != Guid.Empty ? "Update" : "Create")
+                    </button>
+                </div>
+                <div class="col-4">
+                    <a asp-action="Index" class="btn btn-success form-control">Back to List</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-4 text-right" style="width:250px;">
+            @if (Model.Movies.Picture != null)
+            {
+                var base64 = Convert.ToBase64String(Model.Movies.Picture);
+                var imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
+                <img src="@imgsrc" width="100%" />
+            }
+        </div>
+    </div>
+
+</form>
+
+@section Scripts {
+    <script>
+        $(function () {
+            $('#datePicker').datepicker({
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "1500:2020"
+            });
+        })
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            var GenreDDL = $("#GenreId");
+            var SubGenreDDL = $("#SubGenreId");
+            SubGenreDDL.prop("disabled", true);
+
+            GenreDDL.change(function () {
+                if ($(this).val() == "0") {
+                    SubGenreDDL.prop("disabled", true);
+                    SubGenreDDL.val("0");
+                } 
+                else {
+                    $.ajax({
+                        url: "https://localhost:44371/api/v1/subgenres/getsubgenreingenre/" + $(this).val(),
+                        method: "get",
+                        success: function (data) {
+                            SubGenreDDL.prop("disabled", false);
+                            SubGenreDDL.empty();
+                            SubGenreDDL.append($('<option/>', { value: '0', text: '--Select Model--' }));
+                            $(data).each(function (index, item) {
+                                SubGenreDDL.append($('<option/>', { value: item.id, text: item.name }));
+                            });
+                        }
+                    });
+                }
+            })
+        });
+    </script>
+
+
+}

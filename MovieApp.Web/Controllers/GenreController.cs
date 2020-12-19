@@ -42,7 +42,7 @@ namespace MovieApp.Web.Controllers
             if (ModelState.IsValid)
             {
                 var objFromDb = await _genreRepo.GetAsync(SD.GenreAPIPath, obj.Id);
-                if (obj.Id == Guid.Empty )
+                if (obj.Id == Guid.Empty)
                 {
                     await _genreRepo.CreateAsync(SD.GenreAPIPath, obj);
                 }

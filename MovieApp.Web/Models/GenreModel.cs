@@ -9,8 +9,10 @@ namespace MovieApp.Web.Models
     public class GenreModel
     {
         public Guid Id { get; set; }
+
         [Required]
         public string Name { get; set; }
+
         public DateTime DateCreated { get; set; }
     }
 }

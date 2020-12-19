@@ -9,8 +9,9 @@ namespace MovieApp.API.Repository.IRepository
     public interface IMovieRepository
     {
         ICollection<MovieModel> GetMovie();
-        ICollection<MovieModel> GetSubGenreInGenre(Guid genreId);
-        MovieModel GetMovieById(Guid id);
+        ICollection<MovieModel> GetGenreInMovie(Guid genreId);
+        ICollection<MovieModel> GetSubGenreInMovie(Guid subGenreId);
+        MovieModel GetMovie(Guid id);
         bool MovieExist(string name);
         bool MovieExist(Guid id);
         bool CreateMovie(MovieModel model);

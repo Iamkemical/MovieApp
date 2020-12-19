@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using MovieApp.API.Data;
 using MovieApp.API.Models;
 using MovieApp.API.Models.DTOs;
 using MovieApp.API.Repository.IRepository;
@@ -15,7 +18,7 @@ namespace MovieApp.API.Controllers
     //[Route("api/[controller]")]
     [ApiController]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public class SubGenresController : ControllerBase
+    public class SubGenresController : Controller
     {
         private readonly ISubGenreRepository _genreRepo;
         private readonly IMapper _mapper;
@@ -185,6 +188,32 @@ namespace MovieApp.API.Controllers
                 return StatusCode(500, ModelState);
             }
             return NoContent();
+        }
+
+        /// <summary>
+        /// Get all genres and subgenres
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        [HttpGet("[action]/{Id:Guid}")]
+        [ProducesResponseType(200, Type = typeof(IEnumerable<GenreDTO>))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
+        public IActionResult GetSubGenreInGenre(Guid Id)
+        {
+            if (Id == Guid.Empty)
+            {
+                return NotFound();
+            }
+            var subGenres = _genreRepo.SubGenreInGenre(Id);
+
+            if (subGenres is null)
+            {
+                return NotFound();
+            }
+
+            return Ok(subGenres);
+            //return Json(new SelectList(subGenres, "Id", "Name"));
         }
     }
 }
