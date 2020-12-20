@@ -56,7 +56,7 @@ namespace MovieApp.API.Controllers
         [ProducesDefaultResponseType]
         public IActionResult GetMovieById(Guid movieId)
         {
-            var obj = _movieRepo.GetMovieById(movieId);
+            var obj = _movieRepo.GetMovie(movieId);
 
             if (obj is null)
             {
@@ -64,6 +64,53 @@ namespace MovieApp.API.Controllers
             }
 
             var objDto = _mapper.Map<MoviesDTO>(obj);
+
+            return Ok(objDto);
+        }
+
+        /// <summary>
+        /// Get list of all genre in the movie
+        /// </summary>
+        /// <param name="genreId">Id of genre</param>
+        /// <returns></returns>
+        [HttpGet("[action]/{genreId:Guid}")]
+        [ProducesResponseType(200, Type = typeof(List<MoviesDTO>))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
+        public IActionResult GetGenreInMovie(Guid genreId)
+        {
+            var objList = _movieRepo.GetGenreInMovie(genreId);
+
+            if (objList == null)
+            {
+                return NotFound();
+            }
+            var objDto = new List<MoviesDTO>();
+            foreach (var obj in objList)
+                objDto.Add(_mapper.Map<MoviesDTO>(obj));
+
+            return Ok(objDto);
+        }
+        /// <summary>
+        /// Get list of all subgenre in movie
+        /// </summary>
+        /// <param name="subGenreId">Id of genre</param>
+        /// <returns></returns>
+        [HttpGet("[action]/{subGenreId:Guid}")]
+        [ProducesResponseType(200, Type = typeof(List<MoviesDTO>))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
+        public IActionResult GetSubGenreInMovie(Guid subGenreId)
+        {
+            var objList = _movieRepo.GetSubGenreInMovie(subGenreId);
+
+            if (objList == null)
+            {
+                return NotFound();
+            }
+            var objDto = new List<MoviesDTO>();
+            foreach (var obj in objList)
+                objDto.Add(_mapper.Map<MoviesDTO>(obj));
 
             return Ok(objDto);
         }
@@ -150,7 +197,7 @@ namespace MovieApp.API.Controllers
                 return NotFound();
             }
 
-            var movieObj = _movieRepo.GetMovieById(moviesId);
+            var movieObj = _movieRepo.GetMovie(moviesId);
 
             if (!_movieRepo.DeleteMovie(movieObj))
             {

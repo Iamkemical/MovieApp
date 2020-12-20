@@ -4,7 +4,7 @@
 
 }
 
-<form method="post" asp-action="Upsert" >
+<form method="post" asp-action="Upsert">
 
     <div class="row px-2 mx-2 backgroundWhite border">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -39,7 +39,7 @@
                             dateEst = Model.DateCreated.ToShortDateString();
                         }
                     }
-                    <input id="datePicker" value="@dateEst" type="text" asp-for="@Model.DateCreated" class="form-control" />
+                    <input id="datePicker" value="@dateEst" type="text" asp-for="DateCreated" class="form-control" />
                 </div>
             </div>
             <div class="form-group row">

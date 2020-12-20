@@ -52,6 +52,20 @@
             <param name="movieId">The id of the Movie</param>
             <returns></returns>
         </member>
+        <member name="M:MovieApp.API.Controllers.MoviesController.GetGenreInMovie(System.Guid)">
+            <summary>
+            Get list of all genre in the movie
+            </summary>
+            <param name="genreId">Id of genre</param>
+            <returns></returns>
+        </member>
+        <member name="M:MovieApp.API.Controllers.MoviesController.GetSubGenreInMovie(System.Guid)">
+            <summary>
+            Get list of all subgenre in movie
+            </summary>
+            <param name="subGenreId">Id of genre</param>
+            <returns></returns>
+        </member>
         <member name="M:MovieApp.API.Controllers.MoviesController.CreateMovie(MovieApp.API.Models.DTOs.MoviesCreateDTO)">
             <summary>
             Create a Movie
@@ -114,6 +128,13 @@
             Delete Sub genre from database by passing genre id
             </summary>
             <param name="subGenreId">SubGenre id</param>
+            <returns></returns>
+        </member>
+        <member name="M:MovieApp.API.Controllers.SubGenresController.GetSubGenreInGenre(System.Guid)">
+            <summary>
+            Get all genres and subgenres
+            </summary>
+            <param name="Id"></param>
             <returns></returns>
         </member>
     </members>

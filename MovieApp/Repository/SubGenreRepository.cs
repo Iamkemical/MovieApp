@@ -66,5 +66,12 @@ namespace MovieApp.API.Repository
         {
             return _dbContext.SubGenres.Include(c => c.Genres).Where(c => c.GenreId == genreId).ToList();
         }
+
+
+        public IEnumerable<SubGenreModel> SubGenreInGenre(Guid Id)
+        {
+            return _dbContext.SubGenres.ToList()
+                .Where(m => m.GenreId == Id);
+        }
     }
 }

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using MovieApp.API.Models;
 using MovieApp.API.Models.DTOs;
 using MovieApp.API.Repository.IRepository;
@@ -15,7 +16,7 @@ namespace MovieApp.API.Controllers
     //[Route("api/[controller]")]
     [ApiController]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public class GenresController : ControllerBase
+    public class GenresController : Controller
     {
         private readonly IGenreRepository _genreRepo;
         private readonly IMapper _mapper;

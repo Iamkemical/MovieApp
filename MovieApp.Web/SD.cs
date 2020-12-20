@@ -10,6 +10,6 @@ namespace MovieApp.Web
         public static string APIBaseUrl = "https://localhost:44371/";
         public static string GenreAPIPath = APIBaseUrl + "api/v1/Genres/";
         public static string SubGenreAPIPath = APIBaseUrl + "api/v1/SubGenres/";
-        public static string MovieAPIPath = APIBaseUrl + "api/v1/Movies";
+        public static string MovieAPIPath = APIBaseUrl + "api/v1/Movies/";
     }
 }

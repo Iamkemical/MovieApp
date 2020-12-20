@@ -12,6 +12,7 @@ namespace MovieApp.Web.Models
         [Required]
         public string Name { get; set; }
         public DateTime DateCreated { get; set; }
+        public byte[] Picture { get; set; }
         public enum RatingType { Poor, Average, BlockBuster }
         public RatingType Rating { get; set; }
         [Required]

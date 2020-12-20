@@ -10,6 +10,7 @@ namespace MovieApp.API.Repository.IRepository
     {
         ICollection<SubGenreModel> SubGenre();
         ICollection<SubGenreModel> GetGenreInSubGenre(Guid genreId);
+        IEnumerable<SubGenreModel> SubGenreInGenre(Guid Id);
         SubGenreModel SubGenre(Guid id);
         bool SubGenreExist(string name);
         bool SubGenreExist(Guid id);
