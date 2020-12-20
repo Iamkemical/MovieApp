@@ -4,52 +4,50 @@
 <div class="container">
     <div class="row pb-4 backgroundWhite">
 
-        @foreach (var nationalPark in Model.NationalParkList)
+        @foreach (var movie in Model.MovieList)
         {
             <div class="container backgroundWhite pb-4">
                 <div class="card border">
                     <div class="card-header bg-dark text-light ml-0 row container">
                         <div class="col-12 col-md-6">
-                            <h1 class="text-warning">@nationalPark.Name</h1>
+                            <h1 class="text-warning">Genre : @movie.Genres.Name</h1>
                         </div>
                         <div class="col-12 col-md-6 text-md-right">
-                            <h1 class="text-warning">State : @nationalPark.State</h1>
+                            <h1 class="text-warning">Sub-Genre : @movie.SubGenres.Name</h1>
                         </div>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body bg-dark">
                         <div class="container rounded p-2">
                             <div class="row">
                                 <div class="col-12 col-lg-8">
                                     <div class="row">
                                         <div class="col-12">
-                                            <h3 style="color:#bbb9b9">Established: @nationalPark.Established.Year</h3>
+                                            <h3 style="color:#bbb9b9">Date Created: @movie.DateCreated.Year</h3>
                                         </div>
                                         <div class="col-12">
-                                            @if (Model.TrailList.Where(u => u.NationalParkId == nationalPark.Id).Count() > 0)
+                                            @if (Model.MovieList.Where(u => u.Id == movie.Id).Count() > 0)
                                             {
                                                 <table class="table table-striped" style="border:1px solid #808080 ">
                                                     <tr class="table-secondary">
                                                         <th>
-                                                            Trail
+                                                            Movie
                                                         </th>
-                                                        <th>Distance</th>
-                                                        <th>Elevation Gain</th>
-                                                        <th>Difficulty</th>
+                                                        <th>Audience</th>
+                                                        <th>Rating</th>
                                                     </tr>
-                                                    @foreach (var trails in Model.TrailList.Where(u => u.NationalParkId == nationalPark.Id))
+                                                    @foreach (var movies in Model.MovieList.Where(u => u.Id == movie.Id))
                                                     {
                                                         <tr class="table-secondary">
-                                                            <td>@trails.Name</td>
-                                                            <td>@trails.Distance miles</td>
-                                                            <td>@trails.Elevation ft</td>
-                                                            <td>@trails.Difficulty</td>
+                                                            <td>@movies.Name</td>
+                                                            <td>@movies.Audience</td>
+                                                            <td>@movies.Rating</td>
                                                         </tr>
                                                     }
                                                 </table>
                                             }
                                             else
                                             {
-                                                <p>No trail exist....</p>
+                                                <p>No movies exist....</p>
                                             }
 
                                         </div>
@@ -57,7 +55,7 @@
                                 </div>
                                 <div class="col-12 col-lg-4 text-center">
                                     @{
-                                        var base64 = Convert.ToBase64String(nationalPark.Picture);
+                                        var base64 = Convert.ToBase64String(movie.Picture);
                                         var imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
                                     }
                                     <img src="@imgsrc " class="card-img-top p-2 rounded" width="100%" />
