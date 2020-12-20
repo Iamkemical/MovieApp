@@ -58,7 +58,7 @@ If you want to see the .NET documentation for building APIs and consuming them y
 # Contributing
 By the time of writing this, there's no implementation for security on the application, so if you're interested in building the security into the API and consuming it on the MVC Client you're urged to go ahead and make a pull request when you're done.
 
-#LICENSE
+# LICENSE
 MIT
 
 # Project Status
