@@ -31,24 +31,36 @@ The repository pattern is used in calling all the individual controllers in the 
 ## VISUAL STUDIO
 1. Clone the project on your local computer or download as Zip folder. 
 2. Open the .sln project. 
-3. Change the startup project on the properties of the project to mutiple, this would lanch both the API and MVC Client project.
-4. Build project.
-5. Run project.
+3. Change the startup project on the properties of the project to mutiple, this would launch both the API and MVC Client project.
+4. Add Migrations and Update Database on the Package Manager Console.
+``` C#
+add-migration <migrationname>
+
+update-database
+```
+5. Build project.
+6. Run project.
 
 ## Visual Studio Code
 1. Clone the project on your local computer or download as Zip folder. 
 2. Using the Command Prompt go to the directory of the project.
 3. Open the project at the root of the folder.
 4. Change the configuration of the project to launch both API and MVC project together.
-5. Clean the project using
+5. Add Migrations and Update Database on the Package Manager Console
+``` C#
+dotnet add migration <migrationname>
+
+dotnet update database
+```
+6. Clean the project using
 ``` C#
 dotnet clean
 ```
-6. Build project on the command line
+7. Build project on the command line
 ``` C#
 dotnet build
 ```
-7. Run project.
+8. Run project.
 ``` C#
 dotnet run
 ```
