@@ -46,7 +46,7 @@ update-database
 2. Using the Command Prompt go to the directory of the project.
 3. Open the project at the root of the folder.
 4. Change the configuration of the project to launch both API and MVC project together.
-5. Add Migrations and Update Database on the Package Manager Console
+5. Add Migrations and Update Database on the Terminal.
 ``` C#
 dotnet add migration <migrationname>
 
