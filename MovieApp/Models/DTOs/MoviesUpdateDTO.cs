@@ -14,6 +14,7 @@ namespace MovieApp.API.Models.DTOs
         public string Name { get; set; }
         public byte[] Picture { get; set; }
         public RatingType Rating { get; set; }
+        public DateTime DateCreated { get; set; }
         public AudienceType Audience { get; set; }
         [Required]
         public Guid GenreId { get; set; }
