@@ -86,7 +86,7 @@
                             dateEst = Model.Movies.DateCreated.ToShortDateString();
                         }
                     }
-                    <input id="datePicker" value="@dateEst" type="text" asp-for="Movies.DateCreated" class="form-control" />
+                    <input id="datePicker" value="@dateEst" type="text" asp-for="@Model.Movies.DateCreated" class="form-control" />
                 </div>
 
             </div>
@@ -119,7 +119,7 @@
             $('#datePicker').datepicker({
                 changeMonth: true,
                 changeYear: true,
-                yearRange: "1500:2020"
+                yearRange: "1980:2021"
             });
         })
     </script>

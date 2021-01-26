@@ -9,11 +9,11 @@
             <div class="container backgroundWhite pb-4">
                 <div class="card border">
                     <div class="card-header bg-dark text-light ml-0 row container">
-                        <div class="col-12 col-md-6">
-                            <h1 class="text-warning">Genre : @movie.Genres.Name</h1>
+                        <div class="col-12 col-md-6 size">
+                            <h4 class="text-warning">Genre : @movie.Genres.Name</h4>
                         </div>
-                        <div class="col-12 col-md-6 text-md-right">
-                            <h1 class="text-warning">Sub-Genre : @movie.SubGenres.Name</h1>
+                        <div class="col-12 col-md-6 text-md-right size">
+                            <h4 class="text-warning">Sub-Genre : @movie.SubGenres.Name</h4>
                         </div>
                     </div>
                     <div class="card-body bg-dark">
@@ -22,7 +22,7 @@
                                 <div class="col-12 col-lg-8">
                                     <div class="row">
                                         <div class="col-12">
-                                            <h3 style="color:#bbb9b9">Date Created: @movie.DateCreated.Year</h3>
+                                            <h4 style="color:#bbb9b9">Date Created: @movie.DateCreated.Year</h4>
                                         </div>
                                         <div class="col-12">
                                             @if (Model.MovieList.Where(u => u.Id == movie.Id).Count() > 0)
