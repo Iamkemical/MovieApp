@@ -46,9 +46,9 @@ namespace MovieApp.API.Repository
             {
                 Subject = new ClaimsIdentity(new Claim[] {
                     new Claim(ClaimTypes.Name, user.UserId.ToString()),
-                    //new Claim(ClaimTypes.Role, user)
+                    new Claim(ClaimTypes.Role, user.Role)
                 }),
-                Expires = DateTime.UtcNow.AddDays(7),
+                Expires = DateTime.UtcNow.AddMinutes(30),
                 SigningCredentials = new SigningCredentials
                 (new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
@@ -61,6 +61,16 @@ namespace MovieApp.API.Repository
 
         public UserModel Create(UserModel user, string password)
         {
+            UserModel userObj = new UserModel
+            {
+                UserName = user.UserName,
+                Password = user.Password,
+                Role = "Admin",
+                Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+            };
+
             //validation
             if (string.IsNullOrWhiteSpace(password))
                 throw new AppException("Password is required");
@@ -71,10 +81,10 @@ namespace MovieApp.API.Repository
             byte[] passwordHash, passwordSalt;
             CreatePasswordHash(password, out passwordHash, out passwordSalt);
 
-            user.PasswordHash = passwordHash;
-            user.PasswordSalt = passwordSalt;
+            userObj.PasswordHash = passwordHash;
+            userObj.PasswordSalt = passwordSalt;
 
-            _dbContext.Users.Add(user);
+            _dbContext.Users.Add(userObj);
             _dbContext.SaveChanges();
 
             return user;

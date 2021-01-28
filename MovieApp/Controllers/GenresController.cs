@@ -78,6 +78,7 @@ namespace MovieApp.API.Controllers
         /// </summary>
         /// <param name="genreDto">Genre Data transfer object</param>
         /// <returns></returns>
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ProducesResponseType(201, Type = typeof(List<GenreDTO>))]
         [ProducesResponseType(StatusCodes.Status201Created)]

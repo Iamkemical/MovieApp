@@ -28,6 +28,31 @@ namespace MovieApp.API.Controllers
             _mapper = mapper;
         }
 
+        [HttpGet]
+        [ProducesResponseType(200, Type = typeof(List<UserDTO>))]
+        public IActionResult GetAll()
+        {
+            var users = _userRepo.GetAll();
+            var userDto = _mapper.Map<IList<UserDTO>>(users);
+            return Ok(userDto);
+        }
+
+        [HttpGet("{id:int}", Name = "GetUser")]
+        [ProducesResponseType(200, Type = typeof(List<UserDTO>))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
+        public IActionResult GetUser(int id)
+        {
+            var users = _userRepo.GetUserById(id);
+            if (users == null)
+            {
+                ModelState.AddModelError("", "User does not exist!");
+                return StatusCode(404, ModelState);
+            }
+            var userDto = _mapper.Map<UserDTO>(users);
+            return Ok(userDto);
+        }
+
         [AllowAnonymous]
         [HttpPost("authenticate")]
         public IActionResult Authenticate([FromBody] UserAuthDTO userDto)
@@ -50,58 +75,33 @@ namespace MovieApp.API.Controllers
 
         [AllowAnonymous]
         [HttpPost("register")]
-        [ProducesResponseType(201, Type = typeof(List<UserRegisterDTO>))]
+        [ProducesResponseType(201, Type = typeof(List<UserDTO>))]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult Register([FromBody] UserRegisterDTO model)
         {
-            // map dto to entity
-             var user = _mapper.Map<UserModel>(model);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            //Map DTO to Entity
+            var user = _mapper.Map<UserModel>(model);
 
             try
             {
                 //save
                 _userRepo.Create(user, model.Password);
-                return CreatedAtRoute("GetUserById", new { userId = user.UserId }, user);
             }
             catch (AppException ex)
             {
                 //return error message if there was an exception
                 return BadRequest(ex.Message);
             }
-        }
 
-        [HttpGet]
-        [ProducesResponseType(200, Type = typeof(List<UserDTO>))]
-        public IActionResult GetAll()
-        {
-            var users = _userRepo.GetAll();
-            var userDto = _mapper.Map<IList<UserDTO>>(users);
-            return Ok(userDto);
-        }
-
-        [HttpGet("{id:int}", Name = "GetUserById")]
-        [ProducesResponseType(200, Type = typeof(List<UserDTO>))]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesDefaultResponseType]
-        public IActionResult GetUserById(int id)
-        {
-            if (id == null)
-            {
-                ModelState.AddModelError("", "Check details and try again!");
-                return StatusCode(400, ModelState);
-            }
-
-            var users = _userRepo.GetUserById(id);
-            if(users == null)
-            {
-                ModelState.AddModelError("", "User does not exist!");
-                return StatusCode(404, ModelState);
-            }
-            var userDto = _mapper.Map<UserDTO>(users);
             return Ok();
         }
+
 
         [HttpPut("{id:int}", Name = "Update")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
