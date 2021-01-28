@@ -28,6 +28,7 @@ namespace MovieApp.Web
             services.AddScoped<IGenreRepository, GenreRepository>();
             services.AddScoped<ISubGenreRepository, SubGenreRepository>();
             services.AddScoped<IMovieRepository, MovieRepository>();
+            services.AddScoped<IAccountRepository, AccountRepository>();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddHttpClient();
         }

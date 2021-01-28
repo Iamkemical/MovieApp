@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MovieApp.Web.Models;
 using MovieApp.Web.Repository.IRepository;
 
 namespace MovieApp.Web.Controllers
 {
+    [Authorize]
     public class GenreController : Controller
     {
         private readonly IGenreRepository _genreRepo;
@@ -18,6 +20,7 @@ namespace MovieApp.Web.Controllers
             return View(new GenreModel() { });
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Upsert(Guid? id)
         {
             GenreModel obj = new GenreModel();

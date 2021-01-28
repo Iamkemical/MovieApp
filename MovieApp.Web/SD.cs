@@ -11,5 +11,6 @@ namespace MovieApp.Web
         public static string GenreAPIPath = APIBaseUrl + "api/v1/Genres/";
         public static string SubGenreAPIPath = APIBaseUrl + "api/v1/SubGenres/";
         public static string MovieAPIPath = APIBaseUrl + "api/v1/Movies/";
+        public static string AccountAPIPath = APIBaseUrl + "api/v1/Users/";
     }
 }

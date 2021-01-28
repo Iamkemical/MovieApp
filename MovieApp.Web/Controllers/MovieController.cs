@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MovieApp.Web.Models;
@@ -11,6 +12,7 @@ using MovieApp.Web.Repository.IRepository;
 
 namespace MovieApp.Web.Controllers
 {
+    [Authorize]
     public class MovieController : Controller
     {
         private readonly ISubGenreRepository _subGenreRepo;
@@ -30,6 +32,7 @@ namespace MovieApp.Web.Controllers
             return View(new MoviesModel());
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Upsert(Guid? id)
         {
 

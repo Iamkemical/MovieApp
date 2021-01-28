@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MovieApp.Web.Models;
@@ -10,6 +11,7 @@ using MovieApp.Web.Repository.IRepository;
 
 namespace MovieApp.Web.Controllers
 {
+    [Authorize]
     public class SubGenreController : Controller
     {
         private readonly ISubGenreRepository _subGenreRepo;
@@ -24,6 +26,7 @@ namespace MovieApp.Web.Controllers
             return View(new SubGenreModel());
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Upsert(Guid? id)
         {
             IEnumerable<GenreModel> genreList = await _genreRepo.GetAllAsync(SD.GenreAPIPath);
