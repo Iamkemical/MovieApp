@@ -11,6 +11,7 @@ The project is built on the .NET Core 3.1 (LTS).
 4. Open API Specification
 5. Swagger Documentation
 6. XML Comments
+7. Authentication and Authorization
 
 ## Features of MVC Client
 1. Use of Http Client
@@ -68,7 +69,7 @@ dotnet run
 If you want to see the .NET documentation for building APIs and consuming them you can visit https://docs.microsoft.com/en-us/aspnet/core/?view=aspnetcore-5.0
 
 # Contributing
-By the time of writing this, there's no implementation for security on the application, so if you're interested in building the security into the API and consuming it on the MVC Client you're urged to go ahead and make a pull request when you're done.
+Having added security to the API, its needful to build other security functionalities.
 
 # Contributor
 Isaac Gabriel
