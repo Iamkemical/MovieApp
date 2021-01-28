@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MovieApp.Web.Models;
@@ -32,9 +33,9 @@ namespace MovieApp.Web.Controllers
         {
             IndexVM listOfGenresSubGenresAndMovies = new IndexVM
             {
-                GenreList = await _genreRepo.GetAllAsync(SD.GenreAPIPath),
-                SubGenreList = await _subGenreRepo.GetAllAsync(SD.SubGenreAPIPath),
-                MovieList = await _movieRepo.GetAllAsync(SD.MovieAPIPath)
+                GenreList = await _genreRepo.GetAllAsync(SD.GenreAPIPath, HttpContext.Session.GetString("JWToken")),
+                SubGenreList = await _subGenreRepo.GetAllAsync(SD.SubGenreAPIPath, HttpContext.Session.GetString("JWToken")),
+                MovieList = await _movieRepo.GetAllAsync(SD.MovieAPIPath, HttpContext.Session.GetString("JWToken"))
             };
             return View(listOfGenresSubGenresAndMovies);
         }

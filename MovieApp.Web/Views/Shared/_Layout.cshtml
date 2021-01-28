@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor httpAccessor
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -24,17 +26,36 @@
                         <li class="nav-item">
                             <a class="nav-link text-white-50" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">Content Management</a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" asp-controller="Genre" asp-action="Index">Genre</a>
-                                <a class="dropdown-item" asp-controller="SubGenre" asp-action="Index">Sub Genre</a>
-                                <a class="dropdown-item" asp-controller="Movie" asp-action="Index">Movies</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Users</a>
-                            </div>
-                        </li>
+                        @if (User.IsInRole("Admin") || User.IsInRole("NULL"))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true"></a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" asp-controller="Genre" asp-action="Index"></a>
+                                    <a class="dropdown-item" asp-controller="SubGenre" asp-action="Index"></a>
+                                    <a class="dropdown-item" asp-controller="Movie" asp-action="Index"></a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#"></a>
+                                </div>
+                            </li>
+                        }
 
+                        @if (httpAccessor.HttpContext.Session.GetString("JWToken") != null &&
+                   httpAccessor.HttpContext.Session.GetString("JWToken").ToString().Length > 0)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-controller="Home" asp-action="Logout">Logout</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-controller="Home" asp-action="Login">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-controller="Home" asp-action="Register">Register</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
