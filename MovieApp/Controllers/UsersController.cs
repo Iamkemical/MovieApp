@@ -63,7 +63,7 @@ namespace MovieApp.API.Controllers
             {
                 //save
                 _userRepo.Create(user, model.Password);
-                return Ok();
+                return CreatedAtRoute("GetUserById", new { userId = user.UserId }, user);
             }
             catch (AppException ex)
             {
@@ -73,12 +73,34 @@ namespace MovieApp.API.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(200, Type = typeof(List<UserAuthDTO>))]
+        [ProducesResponseType(200, Type = typeof(List<UserDTO>))]
         public IActionResult GetAll()
         {
             var users = _userRepo.GetAll();
-            var userDto = _mapper.Map<IList<UserAuthDTO>>(users);
+            var userDto = _mapper.Map<IList<UserDTO>>(users);
             return Ok(userDto);
+        }
+
+        [HttpGet("{id:int}", Name = "GetUserById")]
+        [ProducesResponseType(200, Type = typeof(List<UserDTO>))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
+        public IActionResult GetUserById(int id)
+        {
+            if (id == null)
+            {
+                ModelState.AddModelError("", "Check details and try again!");
+                return StatusCode(400, ModelState);
+            }
+
+            var users = _userRepo.GetUserById(id);
+            if(users == null)
+            {
+                ModelState.AddModelError("", "User does not exist!");
+                return StatusCode(404, ModelState);
+            }
+            var userDto = _mapper.Map<UserDTO>(users);
+            return Ok();
         }
 
         [HttpPut("{id:int}", Name = "Update")]

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MovieApp.API.Models;
@@ -11,6 +12,7 @@ using MovieApp.API.Repository.IRepository;
 
 namespace MovieApp.API.Controllers
 {
+    [Authorize]
     [Route("api/v{version:apiVersion}/Movies")]
     //[Route("api/[controller]")]
     [ApiController]

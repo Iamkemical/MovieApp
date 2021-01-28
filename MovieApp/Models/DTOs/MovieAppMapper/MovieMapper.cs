@@ -19,6 +19,7 @@ namespace MovieApp.API.Models.DTOs.MovieAppMapper
             CreateMap<MovieModel, MoviesUpdateDTO>().ReverseMap();
             CreateMap<UserModel, UserAuthDTO>().ReverseMap();
             CreateMap<UserModel, UserRegisterDTO>().ReverseMap();
+            CreateMap<UserModel, UserDTO>().ReverseMap();
         }
     }
 }
