@@ -69,7 +69,7 @@ dotnet run
 If you want to see the .NET documentation for building APIs and consuming them you can visit https://docs.microsoft.com/en-us/aspnet/core/?view=aspnetcore-5.0
 
 # Contributing
-Having added security to the API, its needful to build other security functionalities.
+With the API and Web Project fully secured using JWT and Cookie Auth, contributions are needed to build other security functionalities into the API and Web Project.
 
 # Contributor
 Isaac Gabriel
