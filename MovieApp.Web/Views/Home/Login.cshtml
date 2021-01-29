@@ -1,0 +1,29 @@
+﻿@model  MovieApp.Web.Models.UserModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 col-md-4 col-sm-12 my-5">
+            <form method="post">
+                <!-- UserName input -->
+                <div class="form-outline mb-4 form-group">
+                    <input type="text" asp-for="UserName" class="form-control" placeholder="Enter user name"/>
+                </div>
+
+                <!-- Password input -->
+                <div class="form-outline mb-4 form-group">
+                    <input type="password" asp-for="Password" class="form-control" placeholder="Enter password"/>
+                </div>
+
+                <!-- Submit button -->
+                <div class="mx-5">
+                    <button type="submit" class="btn btn-primary w-50 ">Sign in</button>
+                </div>
+                
+            </form>
+        </div>
+    </div>
+</div>
+

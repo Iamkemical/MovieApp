@@ -31,7 +31,8 @@ namespace MovieApp.Web.Repository
             }
 
             var client = _clientFactory.CreateClient();
-            if (token.Length != 0)
+
+            if (token != null && token.Length != 0)
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             }
@@ -52,7 +53,7 @@ namespace MovieApp.Web.Repository
             var request = new HttpRequestMessage(HttpMethod.Delete, url + id);
 
             var client = _clientFactory.CreateClient();
-            if (token.Length != 0)
+            if (token != null && token.Length != 0)
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             }
@@ -73,7 +74,8 @@ namespace MovieApp.Web.Repository
             var request = new HttpRequestMessage(HttpMethod.Get, url);
 
             var client = _clientFactory.CreateClient();
-            if (token.Length != 0)
+
+            if (token != null && token.Length != 0)
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             }
@@ -95,7 +97,7 @@ namespace MovieApp.Web.Repository
             var request = new HttpRequestMessage(HttpMethod.Get, url + id);
 
             var client = _clientFactory.CreateClient();
-            if (token.Length != 0)
+            if (token != null && token.Length != 0)
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             }
@@ -126,7 +128,7 @@ namespace MovieApp.Web.Repository
             }
 
             var client = _clientFactory.CreateClient();
-            if (token.Length != 0)
+            if (token != null && token.Length != 0)
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             }

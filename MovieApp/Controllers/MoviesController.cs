@@ -12,7 +12,6 @@ using MovieApp.API.Repository.IRepository;
 
 namespace MovieApp.API.Controllers
 {
-    [Authorize]
     [Route("api/v{version:apiVersion}/Movies")]
     //[Route("api/[controller]")]
     [ApiController]
@@ -56,6 +55,7 @@ namespace MovieApp.API.Controllers
         [ProducesResponseType(200, Type = typeof(List<MoviesDTO>))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
+        [Authorize(Roles = "Admin")]
         public IActionResult GetMovieById(Guid movieId)
         {
             var obj = _movieRepo.GetMovie(movieId);

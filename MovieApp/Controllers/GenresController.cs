@@ -13,12 +13,11 @@ using MovieApp.API.Repository.IRepository;
 
 namespace MovieApp.API.Controllers
 {
-    [Authorize]
     [Route("api/v{version:apiVersion}/Genres")]
     //[Route("api/[controller]")]
     [ApiController]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public class GenresController : Controller
+    public class GenresController : ControllerBase
     {
         private readonly IGenreRepository _genreRepo;
         private readonly IMapper _mapper;
@@ -59,6 +58,7 @@ namespace MovieApp.API.Controllers
         [ProducesResponseType(200, Type = typeof(List<GenreDTO>))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
+        [Authorize]
         public IActionResult GetGenreById(Guid genreId)
         {
             var obj = _genreRepo.GetGenre(genreId);

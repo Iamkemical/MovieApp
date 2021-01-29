@@ -15,12 +15,11 @@ using MovieApp.API.Repository.IRepository;
 
 namespace MovieApp.API.Controllers
 {
-    [Authorize]
     [Route("api/v{version:apiVersion}/SubGenres")]
     //[Route("api/[controller]")]
     [ApiController]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public class SubGenresController : Controller
+    public class SubGenresController : ControllerBase
     {
         private readonly ISubGenreRepository _genreRepo;
         private readonly IMapper _mapper;
@@ -61,6 +60,7 @@ namespace MovieApp.API.Controllers
         [ProducesResponseType(200, Type = typeof(List<SubGenreDTO>))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
+        [Authorize(Roles = "Admin")]
         public IActionResult GetSubGenreById(Guid subGenreId)
         {
             var obj = _genreRepo.SubGenre(subGenreId);

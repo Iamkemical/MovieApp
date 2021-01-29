@@ -48,7 +48,7 @@ namespace MovieApp.API.Repository
                     new Claim(ClaimTypes.Name, user.UserId.ToString()),
                     new Claim(ClaimTypes.Role, user.Role)
                 }),
-                Expires = DateTime.UtcNow.AddMinutes(30),
+                Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials
                 (new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
@@ -87,7 +87,7 @@ namespace MovieApp.API.Repository
             _dbContext.Users.Add(userObj);
             _dbContext.SaveChanges();
 
-            return user;
+            return userObj;
         }
 
         public void Delete(int id)

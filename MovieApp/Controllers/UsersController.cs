@@ -18,7 +18,7 @@ namespace MovieApp.API.Controllers
     //[Route("api/[controller]")]
     [ApiController]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public class UsersController : Controller
+    public class UsersController : ControllerBase
     {
         private readonly IUserRepository _userRepo;
         private readonly IMapper _mapper;
@@ -69,7 +69,8 @@ namespace MovieApp.API.Controllers
                 UserName = user.UserName,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                Token = user.Token
+                Token = user.Token,
+                Role = user.Role
             });
         }
 

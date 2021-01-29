@@ -27,7 +27,7 @@ namespace MovieApp.Web.Controllers
             return View(new SubGenreModel());
         }
 
-        [Authorize(Roles = "Admin")]
+       [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Upsert(Guid? id)
         {
             IEnumerable<GenreModel> genreList = await _genreRepo.GetAllAsync(SD.GenreAPIPath, HttpContext.Session.GetString("JWToken"));

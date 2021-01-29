@@ -1,0 +1,52 @@
+﻿@model MovieApp.Web.Models.UserModel
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-11 col-md-4 col-sm-12 my-5">
+            <form method="post">
+                <!-- 2 column grid layout with text inputs for the first and last names -->
+                <div class="row mb-4">
+                    <div class="col">
+                        <div class="form-outline">
+                            <input type="text" asp-for="FirstName" placeholder="First Name" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-outline">
+                            <input type="text" asp-for="LastName" placeholder="Last Name" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- UserName input -->
+                <div class="form-outline mb-4">
+                    <input type="text" asp-for="UserName" placeholder="User name" class="form-control" />
+                </div>
+
+                <!-- Email input -->
+                <div class="form-outline mb-4">
+                    <input type="email" asp-for="Email" placeholder="Email" class="form-control" />
+                </div>
+
+                <!-- Password input -->
+                <div class="form-outline mb-4">
+                    <input type="password" asp-for="Password" placeholder="Password" class="form-control" />
+                </div>
+
+                <!-- Submit button -->
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary mb-4 w-50">Sign up</button>
+                </div>
+                
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
