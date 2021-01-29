@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MovieApp.API.Models;
@@ -54,6 +55,7 @@ namespace MovieApp.API.Controllers
         [ProducesResponseType(200, Type = typeof(List<MoviesDTO>))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
+        [Authorize(Roles = "Admin")]
         public IActionResult GetMovieById(Guid movieId)
         {
             var obj = _movieRepo.GetMovie(movieId);

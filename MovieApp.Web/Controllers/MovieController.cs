@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MovieApp.Web.Models;
@@ -11,6 +13,7 @@ using MovieApp.Web.Repository.IRepository;
 
 namespace MovieApp.Web.Controllers
 {
+    [Authorize]
     public class MovieController : Controller
     {
         private readonly ISubGenreRepository _subGenreRepo;
@@ -30,13 +33,14 @@ namespace MovieApp.Web.Controllers
             return View(new MoviesModel());
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Upsert(Guid? id)
         {
 
             MovieUpsertVM obj = new MovieUpsertVM()
             {
-                GenreList = await _genreRepo.GetAllAsync(SD.GenreAPIPath),
-                SubGenreList = await _subGenreRepo.GetAllAsync(SD.SubGenreAPIPath),
+                GenreList = await _genreRepo.GetAllAsync(SD.GenreAPIPath, HttpContext.Session.GetString("JWToken")),
+                SubGenreList = await _subGenreRepo.GetAllAsync(SD.SubGenreAPIPath, HttpContext.Session.GetString("JWToken")),
                 Movies = new MoviesModel()
             };
 
@@ -47,7 +51,7 @@ namespace MovieApp.Web.Controllers
                 return View(obj);
             }
             // flow will come for update
-            obj.Movies = await _movieRepo.GetAsync(SD.MovieAPIPath, id.GetValueOrDefault());
+            obj.Movies = await _movieRepo.GetAsync(SD.MovieAPIPath, id.GetValueOrDefault(), HttpContext.Session.GetString("JWToken"));
             if (obj.Movies == null)
             {
                 return NotFound();
@@ -77,16 +81,16 @@ namespace MovieApp.Web.Controllers
                 }
                 else
                 {
-                    var objFromDb = await _movieRepo.GetAsync(SD.MovieAPIPath, objVM.Movies.Id);
+                    var objFromDb = await _movieRepo.GetAsync(SD.MovieAPIPath, objVM.Movies.Id, HttpContext.Session.GetString("JWToken"));
                     objVM.Movies.Picture = objFromDb.Picture;
                 }
                 if (objVM.Movies.Id == Guid.Empty)
                 {
-                    await _movieRepo.CreateAsync(SD.MovieAPIPath, objVM.Movies);
+                    await _movieRepo.CreateAsync(SD.MovieAPIPath, objVM.Movies, HttpContext.Session.GetString("JWToken"));
                 }
                 else
                 {
-                    await _movieRepo.UpdateAsync(SD.MovieAPIPath + objVM.Movies.Id, objVM.Movies);
+                    await _movieRepo.UpdateAsync(SD.MovieAPIPath + objVM.Movies.Id, objVM.Movies, HttpContext.Session.GetString("JWToken"));
                 }
                 return RedirectToAction(nameof(Index));
             }
@@ -94,8 +98,8 @@ namespace MovieApp.Web.Controllers
             {
                 MovieUpsertVM obj = new MovieUpsertVM()
                 {
-                    GenreList = await _genreRepo.GetAllAsync(SD.GenreAPIPath),
-                    SubGenreList = await _subGenreRepo.GetAllAsync(SD.SubGenreAPIPath),
+                    GenreList = await _genreRepo.GetAllAsync(SD.GenreAPIPath, HttpContext.Session.GetString("JWToken")),
+                    SubGenreList = await _subGenreRepo.GetAllAsync(SD.SubGenreAPIPath, HttpContext.Session.GetString("JWToken")),
                     Movies = objVM.Movies
                 };
                 return View(obj);
@@ -104,13 +108,13 @@ namespace MovieApp.Web.Controllers
 
         public async Task<IActionResult> GetAllMovies()
         {
-            return Json(new { data = await _movieRepo.GetAllAsync(SD.MovieAPIPath) });
+            return Json(new { data = await _movieRepo.GetAllAsync(SD.MovieAPIPath, HttpContext.Session.GetString("JWToken")) });
         }
 
         [HttpDelete]
         public async Task<IActionResult> Delete(Guid id)
         {
-            var status = await _movieRepo.DeleteAsync(SD.MovieAPIPath, id);
+            var status = await _movieRepo.DeleteAsync(SD.MovieAPIPath, id, HttpContext.Session.GetString("JWToken"));
             if (status)
             {
                 return Json(new { success = true, message = "Delete Successful!" });

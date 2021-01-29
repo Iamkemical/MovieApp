@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -16,7 +17,7 @@ namespace MovieApp.API.Controllers
     //[Route("api/[controller]")]
     [ApiController]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public class GenresController : Controller
+    public class GenresController : ControllerBase
     {
         private readonly IGenreRepository _genreRepo;
         private readonly IMapper _mapper;
@@ -57,6 +58,7 @@ namespace MovieApp.API.Controllers
         [ProducesResponseType(200, Type = typeof(List<GenreDTO>))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
+        [Authorize]
         public IActionResult GetGenreById(Guid genreId)
         {
             var obj = _genreRepo.GetGenre(genreId);
@@ -76,6 +78,7 @@ namespace MovieApp.API.Controllers
         /// </summary>
         /// <param name="genreDto">Genre Data transfer object</param>
         /// <returns></returns>
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ProducesResponseType(201, Type = typeof(List<GenreDTO>))]
         [ProducesResponseType(StatusCodes.Status201Created)]

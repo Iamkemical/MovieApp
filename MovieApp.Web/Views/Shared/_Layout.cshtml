@@ -1,9 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor httpAccessor
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - MovieApp.Web</title>
+    <title>@ViewData["Title"] Movie Application</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" />
@@ -14,7 +16,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">MovieApp</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Movie App</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -24,17 +26,36 @@
                         <li class="nav-item">
                             <a class="nav-link text-white-50" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">Content Management</a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" asp-controller="Genre" asp-action="Index">Genre</a>
-                                <a class="dropdown-item" asp-controller="SubGenre" asp-action="Index">Sub Genre</a>
-                                <a class="dropdown-item" asp-controller="Movie" asp-action="Index">Movies</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Users</a>
-                            </div>
-                        </li>
+                        @if (User.IsInRole("Admin") || User.IsInRole("NULL"))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">Content Management</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" asp-controller="Genre" asp-action="Index">Genre</a>
+                                    <a class="dropdown-item" asp-controller="SubGenre" asp-action="Index">Sub Genre</a>
+                                    <a class="dropdown-item" asp-controller="Movie" asp-action="Index">Movies</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">Users</a>
+                                </div>
+                            </li>
+                        }
 
+                        @if (httpAccessor.HttpContext.Session.GetString("JWToken") != null &&
+                   httpAccessor.HttpContext.Session.GetString("JWToken").ToString().Length > 0)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-controller="Home" asp-action="Logout">Logout</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-controller="Home" asp-action="Login">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-controller="Home" asp-action="Register">Register</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
@@ -42,15 +63,18 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
+            @if (TempData["alert"] != null)
+            {
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    @TempData["alert"]
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            }
             @RenderBody()
         </main>
     </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2020 - MovieApp.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

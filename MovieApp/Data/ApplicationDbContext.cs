@@ -18,5 +18,6 @@ namespace MovieApp.API.Data
         public DbSet<GenreModel> Genres { get; set; }
         public DbSet<SubGenreModel> SubGenres { get; set; }
         public DbSet<MovieModel> Movies { get; set; }
+        public DbSet<UserModel> Users { get; set; }
     }
 }
