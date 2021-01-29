@@ -12,6 +12,7 @@ The project is built on the .NET Core 3.1 (LTS).
 5. Swagger Documentation
 6. XML Comments
 7. Authentication and Authorization
+8. Password Hashing
 
 ## Features of MVC Client
 1. Use of Http Client
