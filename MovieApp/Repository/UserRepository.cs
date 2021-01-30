@@ -65,7 +65,7 @@ namespace MovieApp.API.Repository
             {
                 UserName = user.UserName,
                 Password = user.Password,
-                Role = "Admin",
+                Role = "Customer",
                 Email = user.Email,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
