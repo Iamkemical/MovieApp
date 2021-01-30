@@ -20,7 +20,7 @@ The project is built on the .NET Core 3.1 (LTS).
 3. MVVM Pattern
 
 ## Background of API
-The API is built using best practices and standard. The API performs CRUD operatin on the database built on the repository pattern.
+The API is built using best practices and standard. The API performs CRUD operation on the database built on the repository pattern.
 The use of Data Transfer Objects in abstracting data and mapping to the appropraite model.
 Open API Specification highlights the use of Swagger for documenting and testing all individual endpoint of the API.
 XML Comments help in detailing each individual endpoint on the Swagger Documentation.
