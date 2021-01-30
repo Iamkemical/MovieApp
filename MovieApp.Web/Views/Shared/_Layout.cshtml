@@ -26,7 +26,7 @@
                         <li class="nav-item">
                             <a class="nav-link text-white-50" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        @if (User.IsInRole("Admin") || User.IsInRole("NULL"))
+                        @if (User.IsInRole("Admin") || User.IsInRole("Customer"))
                         {
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">Content Management</a>
