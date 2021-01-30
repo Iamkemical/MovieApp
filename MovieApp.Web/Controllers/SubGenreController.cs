@@ -95,6 +95,7 @@ namespace MovieApp.Web.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(Guid id)
         {
             var status = await _subGenreRepo.DeleteAsync(SD.SubGenreAPIPath, id, HttpContext.Session.GetString("JWToken"));
