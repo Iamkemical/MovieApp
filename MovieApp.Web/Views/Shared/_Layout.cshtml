@@ -41,7 +41,7 @@
                         }
 
                         @if (httpAccessor.HttpContext.Session.GetString("JWToken") != null &&
-                   httpAccessor.HttpContext.Session.GetString("JWToken").ToString().Length > 0)
+                  httpAccessor.HttpContext.Session.GetString("JWToken").ToString().Length > 0)
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-white" asp-controller="Home" asp-action="Logout">Logout</a>
@@ -65,7 +65,7 @@
         <main role="main" class="pb-3">
             @if (TempData["alert"] != null)
             {
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <div class="alert alert-dark alert-dismissible fade show" role="alert">
                     @TempData["alert"]
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
