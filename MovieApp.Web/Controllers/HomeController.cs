@@ -83,7 +83,7 @@ namespace MovieApp.Web.Controllers
 
 
             HttpContext.Session.SetString("JWToken", objUser.Token);
-            TempData["alert"] = "Welcome " + objUser.UserName.ToUpper();
+            TempData["alert"] = "Welcome " + objUser.LastName.ToLower() + ", " + objUser.FirstName.ToLower();
             return RedirectToAction("Index");
         }
 
