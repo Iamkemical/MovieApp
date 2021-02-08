@@ -8,6 +8,7 @@ namespace MovieApp.API.Models.DTOs
 {
     public class SubGenreCreateDTO
     {
+        public Guid Id { get; set; }
         [Required]
         public string Name { get; set; }
         public DateTime DateCreated { get; set; }

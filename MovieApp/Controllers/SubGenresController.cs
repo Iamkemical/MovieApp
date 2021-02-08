@@ -154,11 +154,12 @@ namespace MovieApp.API.Controllers
                 return BadRequest(ModelState);
             }
 
-            var genreObj = _mapper.Map<SubGenreModel>(subGenreDto);
+            var subGenreObj = _mapper.Map<SubGenreModel>(subGenreDto);
 
-            if (!_genreRepo.UpdateSubGenre(genreObj))
+            var subGenreUpdated = _genreRepo.UpdateSubGenre(subGenreObj);
+            if (!subGenreUpdated)
             {
-                ModelState.AddModelError("", $"Something went wrong when updating the record {genreObj.Name}");
+                ModelState.AddModelError("", $"Something went wrong when updating the record {subGenreObj.Name}");
                 return StatusCode(500, ModelState);
             }
 
