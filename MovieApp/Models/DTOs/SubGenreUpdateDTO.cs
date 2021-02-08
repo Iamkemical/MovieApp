@@ -14,6 +14,7 @@ namespace MovieApp.API.Models.DTOs
         public DateTime DateCreated { get; set; }
         [Required]
         public Guid GenreId { get; set; }
+        public GenreModel Genres { get; set; }
 
     }
 }
