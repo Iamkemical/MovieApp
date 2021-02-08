@@ -13,6 +13,7 @@ The project is built on the .NET Core 3.1 (LTS).
 6. XML Comments
 7. Authentication and Authorization
 8. Password Hashing
+9. Unit testing with Xunit and Moq
 
 ## Features of MVC Client
 1. Use of Http Client
@@ -71,6 +72,7 @@ If you want to see the .NET documentation for building APIs and consuming them y
 
 # Contributing
 With the API and Web Project fully secured using JWT and Cookie Auth, contributions are needed to build other security functionalities into the API and Web Project.
+Unit testing of MVC Controller hasn't been done yet
 
 # Contributor
 Isaac Gabriel
