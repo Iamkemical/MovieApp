@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using MovieApp.API.Models;
 using MovieApp.API.Models.DTOs;
@@ -160,7 +161,7 @@ namespace MovieApp.API.Controllers
         /// <param name="moviesId">Movie id</param>
         /// <param name="moviesDto">Movie DTO</param>
         /// <returns></returns>
-        [HttpPatch("{moviesId:Guid}", Name = "UpdateMovie")]
+        [HttpPut("{moviesId:Guid}", Name = "UpdateMovie")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -178,6 +179,34 @@ namespace MovieApp.API.Controllers
                 ModelState.AddModelError("", $"Something went wrong when updating the record {genreObj.Name}");
                 return StatusCode(500, ModelState);
             }
+
+            return NoContent();
+        }
+
+        /// <summary>
+        /// Updates a part of the movie entity in the database
+        /// </summary>
+        /// <param name="movieId">Id parameter of the movie entity</param>
+        /// <param name="patchDoc">Json Patch Document of the movie entity</param>
+        /// <returns></returns>
+        [HttpPatch("{movieId:Guid}", Name = "PartialUpdateMovie")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public IActionResult PartialUpdateMovie(Guid movieId, JsonPatchDocument<MoviesUpdateDTO> patchDoc)
+        {
+            var movie = _movieRepo.GetMovie(movieId);
+            if (movie == null)
+            {
+                return NotFound();
+            }
+            var moviePatchDto = _mapper.Map<MoviesUpdateDTO>(movie);
+
+            patchDoc.ApplyTo(moviePatchDto, ModelState);
+
+            _mapper.Map(moviePatchDto, movie);
+
+            _movieRepo.UpdateMovie(movie);
 
             return NoContent();
         }

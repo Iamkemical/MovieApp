@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -143,7 +144,7 @@ namespace MovieApp.API.Controllers
         /// <param name="subGenreId">SubGenre id</param>
         /// <param name="subGenreDto">SubGenre DTO</param>
         /// <returns></returns>
-        [HttpPatch("{subGenreId:Guid}", Name = "UpdateSubGenre")]
+        [HttpPut("{subGenreId:Guid}", Name = "UpdateSubGenre")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -162,6 +163,34 @@ namespace MovieApp.API.Controllers
                 ModelState.AddModelError("", $"Something went wrong when updating the record {subGenreObj.Name}");
                 return StatusCode(500, ModelState);
             }
+
+            return NoContent();
+        }
+
+        /// <summary>
+        /// Updates only a part of the subgenre resource in the database
+        /// </summary>
+        /// <param name="subGenreId">Id parameter for the subgenre resource</param>
+        /// <param name="patchDoc">Json patch document for subgenre resource</param>
+        /// <returns></returns>
+        [HttpPatch("{subGenreId:Guid}", Name = "PartialUpdateSubGenre")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public IActionResult PartialUpdateSubGenre(Guid subGenreId, JsonPatchDocument<SubGenreUpdateDTO> patchDoc)
+        {
+            var subGenre = _genreRepo.SubGenre(subGenreId);
+            if (subGenre == null)
+            {
+                return NotFound();
+            }
+            var subGenrePatchDto = _mapper.Map<SubGenreUpdateDTO>(subGenre);
+
+            patchDoc.ApplyTo(subGenrePatchDto, ModelState);
+
+            _mapper.Map(subGenrePatchDto, subGenre);
+
+            _genreRepo.UpdateSubGenre(subGenre);
 
             return NoContent();
         }
