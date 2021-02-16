@@ -89,6 +89,14 @@
             <param name="moviesDto">Movie DTO</param>
             <returns></returns>
         </member>
+        <member name="M:MovieApp.API.Controllers.MoviesController.PartialUpdateMovie(System.Guid,Microsoft.AspNetCore.JsonPatch.JsonPatchDocument{MovieApp.API.Models.DTOs.MoviesUpdateDTO})">
+            <summary>
+            Updates a part of the movie entity in the database
+            </summary>
+            <param name="movieId">Id parameter of the movie entity</param>
+            <param name="patchDoc">Json Patch Document of the movie entity</param>
+            <returns></returns>
+        </member>
         <member name="M:MovieApp.API.Controllers.MoviesController.DeleteMovie(System.Guid)">
             <summary>
             Delete Movie from database by passing movie id
