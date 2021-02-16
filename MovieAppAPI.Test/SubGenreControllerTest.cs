@@ -44,7 +44,12 @@ namespace MovieAppAPI.Test
                 GenreId = Guid.NewGuid(),
                 Genres = new GenreModel(),
             };
-            subGenreRepositoryMock.Setup(repo => repo.SubGenre()).Returns(It.IsAny<ICollection<SubGenreModel>>());
+            List<SubGenreModel> subGenres = new List<SubGenreModel>();
+            subGenres.Add(subGenreModel);
+            ICollection<SubGenreModel> iCollection = subGenres;
+            subGenreRepositoryMock.Setup(repo => repo.SubGenre())
+                .Returns(iCollection);
+
             // Act
             var subGenreResult = subGenreApiController.GetAllSubGenre();
             var okResult = subGenreResult as OkObjectResult;
