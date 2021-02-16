@@ -22,6 +22,7 @@ using MovieApp.API.Data;
 using MovieApp.API.Models.DTOs.MovieAppMapper;
 using MovieApp.API.Repository;
 using MovieApp.API.Repository.IRepository;
+using Newtonsoft.Json.Serialization;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace MovieApp.API
@@ -57,6 +58,8 @@ namespace MovieApp.API
             services.AddScoped<IMovieRepository, MovieRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddAutoMapper(typeof(MovieMapper));
+            services.AddControllers().AddNewtonsoftJson(s =>
+            s.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver());
             var appSettingsSection = Configuration.GetSection("AppSettings");
 
             services.Configure<AppSettings>(appSettingsSection);

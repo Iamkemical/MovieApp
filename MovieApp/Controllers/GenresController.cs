@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MovieApp.API.Models;
@@ -117,7 +118,7 @@ namespace MovieApp.API.Controllers
         /// <param name="genreId">Genre id</param>
         /// <param name="genreDto">Genre DTO</param>
         /// <returns></returns>
-        [HttpPatch("{genreId:Guid}", Name = "UpdateGenre")]
+        [HttpPut("{genreId:Guid}", Name = "UpdateGenre")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -135,6 +136,28 @@ namespace MovieApp.API.Controllers
                 ModelState.AddModelError("", $"Something went wrong when updating the record {genreObj.Name}");
                 return StatusCode(500, ModelState);
             }
+
+            return NoContent();
+        }
+
+        [HttpPatch("{genreId:Guid}", Name = "PartialUpdateGenre")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public IActionResult PartialUpdateGenre(Guid genreId, JsonPatchDocument<GenreDTO> patchDoc)
+        {
+            var genre = _genreRepo.GetGenre(genreId);
+            if (genre == null)
+            {
+                return NotFound();
+            }
+            var genrePatchDto = _mapper.Map<GenreDTO>(genre);
+
+            patchDoc.ApplyTo(genrePatchDto, ModelState);
+
+            _mapper.Map(genrePatchDto, genre);
+
+            _genreRepo.UpdateGenre(genre);
 
             return NoContent();
         }
