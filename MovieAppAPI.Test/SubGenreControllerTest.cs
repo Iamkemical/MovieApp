@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using MovieApp.API.Controllers;
@@ -145,6 +146,45 @@ namespace MovieAppAPI.Test
 
             // Act
             var subGenreResult = subGenreApiController.UpdateSubGenre(subGenreDto.Id, subGenreDto);
+            var noContentResult = subGenreResult as NoContentResult;
+
+            // Assert
+            Assert.True(noContentResult.StatusCode is StatusCodes.Status204NoContent);
+        }
+
+        [Fact]
+        public void PartialUpdateSubGenre_Returns_NoContent()
+        {
+            // Arrange
+            var subGenreRepositoryMock = new Mock<ISubGenreRepository>();
+            var subGenreIMapperMock = new MapperConfiguration(config =>
+            {
+                config.AddProfile(new MovieMapper());
+            });
+            var subGenreMapper = subGenreIMapperMock.CreateMapper();
+            SubGenresController subGenreApiController = new
+                SubGenresController(subGenreRepositoryMock.Object, mapper: subGenreMapper);
+            var patchDoc = new JsonPatchDocument<SubGenreUpdateDTO>();
+            var subGenreDto = new SubGenreUpdateDTO()
+            {
+                Name = "Comedy",
+                DateCreated = DateTime.Parse("15 May 2015"),
+                Id = Guid.NewGuid()
+            };
+            var subGenreModel = new SubGenreModel()
+            {
+                Name = "Comedy",
+                DateCreated = DateTime.Parse("15 May 2015"),
+                Id = Guid.NewGuid()
+            };
+            patchDoc.ApplyTo(subGenreDto, subGenreApiController.ModelState);
+            subGenreRepositoryMock.Setup(repo => repo.SubGenre(It.IsAny<Guid>()))
+                .Returns(subGenreModel);
+            subGenreRepositoryMock.Setup(repo => repo.UpdateSubGenre(It.IsAny<SubGenreModel>()))
+                .Returns(true);
+
+            // Act
+            var subGenreResult = subGenreApiController.PartialUpdateSubGenre(subGenreModel.Id, patchDoc);
             var noContentResult = subGenreResult as NoContentResult;
 
             // Assert
