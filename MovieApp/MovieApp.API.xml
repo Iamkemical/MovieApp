@@ -32,6 +32,14 @@
             <param name="genreDto">Genre DTO</param>
             <returns></returns>
         </member>
+        <member name="M:MovieApp.API.Controllers.GenresController.PartialUpdateGenre(System.Guid,Microsoft.AspNetCore.JsonPatch.JsonPatchDocument{MovieApp.API.Models.DTOs.GenreDTO})">
+            <summary>
+            Updates only a part of the resource in the database
+            </summary>
+            <param name="genreId">Id parameter of the resource to be updated</param>
+            <param name="patchDoc">Json Patch Document to be updated</param>
+            <returns></returns>
+        </member>
         <member name="M:MovieApp.API.Controllers.GenresController.DeleteGenre(System.Guid)">
             <summary>
             Delete genre from database by passing genre id
@@ -121,6 +129,14 @@
             </summary>
             <param name="subGenreId">SubGenre id</param>
             <param name="subGenreDto">SubGenre DTO</param>
+            <returns></returns>
+        </member>
+        <member name="M:MovieApp.API.Controllers.SubGenresController.PartialUpdateSubGenre(System.Guid,Microsoft.AspNetCore.JsonPatch.JsonPatchDocument{MovieApp.API.Models.DTOs.SubGenreUpdateDTO})">
+            <summary>
+            Updates only a part of the subgenre resource in the database
+            </summary>
+            <param name="subGenreId">Id parameter for the subgenre resource</param>
+            <param name="patchDoc">Json patch document for subgenre resource</param>
             <returns></returns>
         </member>
         <member name="M:MovieApp.API.Controllers.SubGenresController.DeleteSubGenre(System.Guid)">
