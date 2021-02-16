@@ -139,7 +139,12 @@ namespace MovieApp.API.Controllers
 
             return NoContent();
         }
-
+        /// <summary>
+        /// Updates only a part of the resource in the database
+        /// </summary>
+        /// <param name="genreId">Id parameter of the resource to be updated</param>
+        /// <param name="patchDoc">Json Patch Document to be updated</param>
+        /// <returns></returns>
         [HttpPatch("{genreId:Guid}", Name = "PartialUpdateGenre")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
