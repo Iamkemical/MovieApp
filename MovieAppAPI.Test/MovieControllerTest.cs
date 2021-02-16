@@ -35,7 +35,11 @@ namespace MovieAppAPI.Test
                 GenreId = Guid.NewGuid(),
                 Genres = new GenreModel(),
             };
-            movieRepositoryMock.Setup(repo => repo.GetMovie()).Returns(It.IsAny<ICollection<MovieModel>>());
+            List<MovieModel> movies = new List<MovieModel>();
+            movies.Add(movieModel);
+            ICollection<MovieModel> iCollection = movies;
+            movieRepositoryMock.Setup(repo => repo.GetMovie())
+                .Returns(iCollection);
             // Act
             var movieResult = movieApiController.GetMovies();
             var okObjectResult = movieResult as OkObjectResult;
