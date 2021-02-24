@@ -14,11 +14,13 @@ The project was originally built on the .NET Core 3.1 (LTS) but has been moved t
 7. Authentication and Authorization
 8. Password Hashing
 9. Unit testing with Xunit and Moq
+10. JWT and Bearer Token
 
 ## Features of MVC Client
 1. Use of Http Client
 2. Repository Pattern
 3. MVVM Pattern
+4. JWT and Bearer Token
 
 ## Background of API
 The API is built using best practices and standard. The API performs CRUD operation on the database built on the repository pattern.
