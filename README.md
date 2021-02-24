@@ -3,7 +3,7 @@ Movie App API and Client
 
 # Description
 Movie App API and Client is a web application project, where the API is built using .NET and is consumed by a .NET MVC Client.
-The project is built on the .NET Core 3.1 (LTS).
+The project was originally built on the .NET Core 3.1 (LTS) but has been moved to .NET 5.
 ## Features of API
 1. CRUD Operations
 2. Repository Pattern
@@ -82,4 +82,3 @@ MIT
 
 # Project Status
 Project has slowed down. You can choose to continue by forking the project to your own repository.
-Since project is built using .NET Core 3.1 (LTS), you can move the project to .NET 5 as you see fit.
