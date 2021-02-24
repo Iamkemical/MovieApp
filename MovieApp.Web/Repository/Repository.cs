@@ -116,7 +116,7 @@ namespace MovieApp.Web.Repository
 
         public async Task<bool> UpdateAsync(string url, T objToUpdate, string token = "")
         {
-            var request = new HttpRequestMessage(HttpMethod.Patch, url);
+            var request = new HttpRequestMessage(HttpMethod.Put, url);
             if (objToUpdate != null)
             {
                 request.Content = new StringContent(
