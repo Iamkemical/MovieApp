@@ -2,6 +2,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Moq;
 using MovieApp.API.Controllers;
 using MovieApp.API.Models;
@@ -27,8 +28,11 @@ namespace MovieAppAPI.Test
                 config.AddProfile(new MovieMapper());
             });
             var genreMapper = genreIMapperMock.CreateMapper();
+            var logMock = new Mock<ILogger<GenresController>>();
+            ILogger<GenresController> logger = logMock.Object;
+
             GenresController genreApiController = new 
-                GenresController(genreRepositoryMock.Object, mapper: genreMapper);
+                GenresController(genreRepositoryMock.Object, mapper: genreMapper, logger);
             var genreDto = new GenreDTO()
             {
                 Name = "Comedy",
@@ -64,8 +68,11 @@ namespace MovieAppAPI.Test
                 config.AddProfile(new MovieMapper());
             });
             var genreMapper = genreIMapperMock.CreateMapper();
+            var logMock = new Mock<ILogger<GenresController>>();
+            ILogger<GenresController> logger = logMock.Object;
+
             GenresController genreApiController = new 
-                GenresController(genreRepositoryMock.Object, mapper: genreMapper);
+                GenresController(genreRepositoryMock.Object, mapper: genreMapper, logger);
             var genreModel = new GenreModel()
             {
                 Name = "Adult Content",
@@ -92,8 +99,11 @@ namespace MovieAppAPI.Test
                 config.AddProfile(new MovieMapper());
             });
             var genreMapper = genreIMapperMock.CreateMapper();
+            var logMock = new Mock<ILogger<GenresController>>();
+            ILogger<GenresController> logger = logMock.Object;
+
             GenresController genreApiController = new 
-                GenresController(genreRepositoryMock.Object, mapper: genreMapper);
+                GenresController(genreRepositoryMock.Object, mapper: genreMapper, logger);
             var genreDto = new GenreDTO()
             {
                 Name = "Comedy",
@@ -123,8 +133,11 @@ namespace MovieAppAPI.Test
                 config.AddProfile(new MovieMapper());
             });
             var genreMapper = genreIMapperMock.CreateMapper();
+            var logMock = new Mock<ILogger<GenresController>>();
+            ILogger<GenresController> logger = logMock.Object;
+
             GenresController genreApiController = new 
-                GenresController(genreRepositoryMock.Object, mapper: genreMapper);
+                GenresController(genreRepositoryMock.Object, mapper: genreMapper, logger);
             var genreDto = new GenreDTO()
             {
                 Name = "Comedy",
@@ -152,8 +165,11 @@ namespace MovieAppAPI.Test
                 config.AddProfile(new MovieMapper());
             });
             var genreMapper = genreIMapperMock.CreateMapper();
+            var logMock = new Mock<ILogger<GenresController>>();
+            ILogger<GenresController> logger = logMock.Object;
+
             GenresController genreApiController = new
-                GenresController(genreRepositoryMock.Object, mapper: genreMapper);
+                GenresController(genreRepositoryMock.Object, mapper: genreMapper, logger);
             var patchDoc = new JsonPatchDocument<GenreDTO>();
             var genreDto = new GenreDTO()
             {
@@ -191,8 +207,11 @@ namespace MovieAppAPI.Test
                 config.AddProfile(new MovieMapper());
             });
             var genreMapper = genreIMapperMock.CreateMapper();
+            var logMock = new Mock<ILogger<GenresController>>();
+            ILogger<GenresController> logger = logMock.Object;
+
             GenresController genreApiController = new 
-                GenresController(genreRepositoryMock.Object, mapper: genreMapper);
+                GenresController(genreRepositoryMock.Object, mapper: genreMapper, logger);
             var genreModel = new GenreModel()
             {
                 Name = "Comedy",

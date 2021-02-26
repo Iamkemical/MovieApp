@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MovieApp\MovieApp.API.csproj" />
+    <ProjectReference Include="..\MovieApp.API\MovieApp.API.csproj" />
   </ItemGroup>
 
 </Project>
