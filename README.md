@@ -15,6 +15,7 @@ The project was originally built on the .NET Core 3.1 (LTS) but has been moved t
 8. Password Hashing
 9. Unit testing with Xunit and Moq
 10. JWT and Bearer Token
+11. Serilog for log management
 
 ## Features of MVC Client
 1. Use of Http Client
