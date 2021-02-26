@@ -24,7 +24,6 @@ namespace MovieApp.API.Controllers
         private readonly IGenreRepository _genreRepo;
         private readonly IMapper _mapper;
         private readonly ILogger<GenresController> _logger;
-        readonly Exception ex = new Exception();
 
         public GenresController(IGenreRepository genreRepo, 
             IMapper mapper,
@@ -72,7 +71,7 @@ namespace MovieApp.API.Controllers
 
             if (obj is null)
             {
-                _logger.LogError($"There was no resource found for the genre with id: {genreId}" + $"/nLog Error: {ex.Message}");
+                _logger.LogError($"There was no resource found for the genre with id: {genreId}");
                 return NotFound();
             }
 
@@ -104,7 +103,7 @@ namespace MovieApp.API.Controllers
             if (_genreRepo.GenreExist(genreDto.Name))
             {
                 ModelState.AddModelError("", "Genre already exist!");
-                _logger.LogError($"There is already another resource with {genreDto.Name} in the database");
+                _logger.LogError($"There is already another resource with name, {genreDto.Name} in the database");
                 return StatusCode(404, ModelState);            
             }
 
@@ -141,7 +140,7 @@ namespace MovieApp.API.Controllers
             if (genreDto == null || genreId != genreDto.Id)
             {
                 Exception ex = new Exception();
-                _logger.LogError("The genreDto is null or the Id in the DTO doesn't correspond with the Genre's Id" + $"/nLog Exception: {ex.Message}");
+                _logger.LogError("The genreDto is null or the Id in the DTO doesn't correspond with the Genre's Id");
                 return BadRequest(ModelState);
             }
 
@@ -149,7 +148,7 @@ namespace MovieApp.API.Controllers
 
             if (!_genreRepo.UpdateGenre(genreObj))
             {
-                _logger.LogError($"An error occured when trying to update the resource in {genreObj.Name}" + $"/nLog Error: {ex.Message}");
+                _logger.LogError($"An error occured when trying to update the resource in {genreObj.Name}");
                 ModelState.AddModelError("", $"Something went wrong when updating the record {genreObj.Name}");
                 return StatusCode(500, ModelState);
             }
@@ -172,7 +171,7 @@ namespace MovieApp.API.Controllers
             var genre = _genreRepo.GetGenre(genreId);
             if (genre == null)
             {
-                _logger.LogError($"genre with id: {genreId} not available in database", ex.Message);
+                _logger.LogError($"genre with id: {genreId} not available in database");
                 return NotFound();
             }
             var genrePatchDto = _mapper.Map<GenreDTO>(genre);
@@ -202,7 +201,7 @@ namespace MovieApp.API.Controllers
         {
             if (!_genreRepo.GenreExist(genreId))
             {
-                _logger.LogError($"Genre with id: {genreId} was not found", ex.Message);
+                _logger.LogError($"Genre with id: {genreId} was not found");
                 return NotFound();
             }
 
@@ -210,7 +209,7 @@ namespace MovieApp.API.Controllers
 
             if (!_genreRepo.DeleteGenre(genreObj))
             {
-                _logger.LogError($"An error occured when deleting record {genreObj.Name}", ex.Message);
+                _logger.LogError($"An error occured when deleting record {genreObj.Name}");
                 ModelState.AddModelError("", $"Something went wrong when deleting the record {genreObj.Name}");
                 return StatusCode(500, ModelState);
             }
