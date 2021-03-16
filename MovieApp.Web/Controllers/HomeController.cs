@@ -72,7 +72,7 @@ namespace MovieApp.Web.Controllers
 
             if (objUser.Token is null)
             {
-                TempData["alert"] = "User does not exist";
+                TempData["alert"] = "Check that you have the right email or password";
                 return View();
             }
 
