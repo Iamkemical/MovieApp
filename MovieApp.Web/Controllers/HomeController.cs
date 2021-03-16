@@ -72,6 +72,7 @@ namespace MovieApp.Web.Controllers
 
             if (objUser.Token is null)
             {
+                TempData["alert"] = "User does not exist";
                 return View();
             }
 
@@ -80,7 +81,6 @@ namespace MovieApp.Web.Controllers
             identity.AddClaim(new Claim(ClaimTypes.Role, objUser.Role));
             var principal = new ClaimsPrincipal(identity);
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
-
 
             HttpContext.Session.SetString("JWToken", objUser.Token);
             TempData["alert"] = "Welcome " + objUser.LastName.ToLower() + ", " + objUser.FirstName.ToLower();
@@ -104,7 +104,7 @@ namespace MovieApp.Web.Controllers
                 return View();
             }
 
-            TempData["alert"] = "Registeration Successful";
+            TempData["alert"] = "Registration Successful";
             return RedirectToAction("Login");
         }
 
