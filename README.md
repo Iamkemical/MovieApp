@@ -77,8 +77,10 @@ If you want to see the .NET documentation for building APIs and consuming them y
 With the API and Web Project fully secured using JWT and Cookie Auth, contributions are needed to build other security functionalities into the API and Web Project.
 Unit testing of MVC Controller hasn't been done yet
 
-# Contributor
+# Contributors
 Isaac Gabriel
+Jay Afolayan
+
 
 # LICENSE
 MIT
