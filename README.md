@@ -2,7 +2,7 @@
 Movie App API and Client
 
 # Description
-Movie App API and Client is a web application project, where the API is built using .NET and is consumed by a .NET MVC Client.
+Movie App API and Client is aN ASP .NET Core 5 MVC web application project, where the API is built using .NET and is consumed by a .NET MVC Client.
 The project was originally built on the .NET Core 3.1 (LTS) but has been moved to .NET 5.
 ## Features of API
 1. CRUD Operations
